@@ -1,0 +1,22 @@
+{
+  "name": "deconstruct-merge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Shigma <1700011071@pku.edu.cn>",
+  "license": "MIT",
+  "description": "A library for merging complicated options.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shigma/deconstruct-merge.git"
+  },
+  "dependencies": {
+    "array-flatten": "^2.1.2"
+  },
+  "keywords": [
+    "merge",
+    "deconstruct",
+    "recursive",
+    "object",
+    "array"
+  ]
+}
