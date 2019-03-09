@@ -1,11 +1,14 @@
 # deconstruct-merge
 
-First deconstruct, then merge.
+[![npm](https://img.shields.io/npm/v/deconstruct-merge.svg)](https://www.npmjs.com/package/deconstruct-merge)
 
-## Examples
+A _simple_ library for merging _complex_ options. First deconstruct, then merge.
+
+## Example
 
 ```js
 const Mergeable = require('deconstruct-merge')
+
 const config = new Mergeable({
   foo: 'flat',
   bar: 'array',
@@ -18,7 +21,10 @@ const config = new Mergeable({
 config
   .merge({
     foo: 1,
-    baz: [{ a: 1 }, { b: 2 }],
+    baz: [
+      { a: 1 },
+      { b: 2 },
+    ],
   })
   .merge({
     foo: [2],
@@ -27,7 +33,10 @@ config
   .merge(undefined)
   .merge({
     bar: 3,
-    baz: [{ a: 2, b: 3 }, { c: 4 }]
+    baz: [
+      { a: 2, b: 3 },
+      { c: 4 },
+    ]
   })
   .value()
 

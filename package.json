@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "Shigma <1700011071@pku.edu.cn>",
   "license": "MIT",
-  "description": "A library for merging complicated options.",
+  "description": "A simple library for merging complex options.",
   "repository": {
     "type": "git",
     "url": "https://github.com/Shigma/deconstruct-merge.git"
