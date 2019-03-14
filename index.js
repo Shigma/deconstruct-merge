@@ -25,8 +25,8 @@ module.exports = class Mergeable {
       this._merge = function (value) {
         Object.assign(this._value, value)
       }
-    } else if (options === 'list' || options === 'flat') {
-      // list & flat
+    } else if (options === 'array' || options === 'flat') {
+      // array & flat
       this._value = []
       this._merge = function (value) {
         if (value === undefined) return
