@@ -11,7 +11,7 @@ const Mergeable = require('deconstruct-merge')
 
 const config = new Mergeable({
   foo: 'flat',
-  bar: 'array',
+  bar: 'list',
   baz: [
     'assign',
     'override',

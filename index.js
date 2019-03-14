@@ -1,5 +1,12 @@
 const flatten = require('array-flatten')
 
+const primitives = [
+  'boolean',
+  'number',
+  'string',
+  'object',
+]
+
 module.exports = class Mergeable {
   static getValue (source) {
     if (!source || typeof source !== 'object' || !source._mergeable) {
@@ -9,25 +16,29 @@ module.exports = class Mergeable {
     }
   }
 
-  constructor (options) {
+  constructor (options = 'override') {
     this._options = options
     this._mergeable = true
     if (options === 'assign') {
+      // assign
       this._value = {}
       this._merge = function (value) {
         Object.assign(this._value, value)
       }
-    } else if (options === 'array' || options === 'flat') {
+    } else if (options === 'list' || options === 'flat') {
+      // list & flat
       this._value = []
       this._merge = function (value) {
         if (value === undefined) return
         this._value.push(value)
       }
     } else if (typeof options === 'function') {
+      // fuction
       this._merge = function (value) {
         this._value = options(value, this._value)
       }
     } else if (Array.isArray(options)) {
+      // deconstruct to array
       const { length } = options
       this._value = options.map(option => new Mergeable(option))
       this._merge = function (value) {
@@ -36,6 +47,7 @@ module.exports = class Mergeable {
         this._value.splice(length, Infinity, ...value.slice(length))
       }
     } else if (options && typeof options === 'object') {
+      // deconstruct to object
       this._value = {}
       for (const key in options) {
         this._value[key] = new Mergeable(options[key])
@@ -50,10 +62,25 @@ module.exports = class Mergeable {
           }
         }
       }
-    } else {
+    } else if (primitives.includes(options)) {
+      // primitives
+      switch (options) {
+        case 'boolean': this._value = false; break
+        case 'string': this._value = ''; break
+        case 'number': this._value = 0; break
+        case 'object': this._value = null; break
+      }
+      this._merge = function (value) {
+        if (typeof value !== options) return
+        this._value = value
+      }
+    } else if (options === 'override') {
+      // override
       this._merge = function (value) {
         this._value = value
       }
+    } else {
+      throw new Error(`Cannot recognize merge option: "${options}".`)
     }
   }
 
